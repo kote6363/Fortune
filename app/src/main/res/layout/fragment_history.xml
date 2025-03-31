@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 背景 -->
+    <View
+        android:id="@+id/background_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_main" />
+
+    <!-- 标题栏 -->
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="#33000000">
+
+        <!-- 标题 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/history_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_history"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal" />
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="#000000"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- 清空历史记录按钮 -->
+    <Button
+        android:id="@+id/clear_history_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_shake"
+        android:paddingStart="15dp"
+        android:paddingTop="1dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="1dp"
+        android:text="@string/clear_history"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <!-- 主内容区 -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        android:clipToPadding="false"
+        android:padding="10dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 历史记录列表 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/history_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_history" />
+
+            <!-- 空状态 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/empty_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginBottom="24dp"
+                        android:src="@drawable/ic_empty_history" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/empty_history_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/empty_history_desc"
+                        android:textAlignment="center"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/start_fortune_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/btn_rounded_accent"
+                        android:paddingStart="24dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="24dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/start_fortune"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout> 

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录 - 古筒求签</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #F3EBE0;
+            color: #4A3925;
+            overflow: hidden;
+            height: 100vh;
+            width: 390px; /* iPhone 15 Pro width */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .device-frame {
+            height: 844px; /* iPhone 15 Pro height */
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 10px solid #1A1A1A;
+            background-color: #8B4513;
+            background-image: linear-gradient(145deg, #8B4513, #CD853F);
+        }
+
+        .app-content {
+            height: calc(100% - 83px); /* full height minus bottom nav */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        .bottom-nav {
+            height: 83px;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px; /* For home indicator area */
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .nav-item i {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+        }
+
+        .history-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            transition: transform 0.2s;
+        }
+
+        .history-card:active {
+            transform: scale(0.98);
+        }
+
+        .search-bar {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+        }
+
+        .fortune-level {
+            width: 60px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .level-top {
+            background-color: #FFC9C9;
+            color: #C53030;
+        }
+
+        .level-middle {
+            background-color: #FEEBC8;
+            color: #C05621;
+        }
+
+        .level-low {
+            background-color: #C6F6D5;
+            color: #2F855A;
+        }
+
+        /* Filter menu */
+        .filter-menu {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom scroll bar */
+        .app-content::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .app-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .app-content::-webkit-scrollbar-thumb {
+            background-color: rgba(205, 133, 63, 0.5);
+            border-radius: 10px;
+        }
+
+        /* Icons color */
+        .text-primary {
+            color: #CD853F;
+        }
+
+        .text-inactive {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Empty state */
+        .empty-state {
+            height: 70%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(74, 57, 37, 0.6);
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: rgba(205, 133, 63, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="device-frame">
+        <!-- App Content -->
+        <div class="app-content">
+            <!-- Header -->
+            <div class="sticky top-0 bg-gradient-to-r from-yellow-800 to-yellow-700 px-5 py-4 z-10">
+                <h1 class="text-xl font-bold text-white text-center">历史记录</h1>
+                
+                <!-- Search and Filter -->
+                <div class="mt-3 flex items-center">
+                    <div class="search-bar flex-1 flex items-center px-3 py-2 mr-2">
+                        <i class="fas fa-search text-gray-500 mr-2"></i>
+                        <input type="text" placeholder="搜索历史记录..." class="bg-transparent w-full outline-none text-gray-800">
+                    </div>
+                    
+                    <button class="bg-white bg-opacity-20 rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-sliders-h text-white"></i>
+                    </button>
+                </div>
+                
+                <!-- Filter options (hidden by default) -->
+                <div class="filter-menu mt-3 p-3 hidden">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-semibold">筛选</span>
+                        <button class="text-primary">清除</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-2 mb-2">
+                        <button class="py-1 px-2 bg-primary bg-opacity-10 rounded-lg text-primary text-sm">本月</button>
+                        <button class="py-1 px-2 bg-gray-100 rounded-lg text-gray-600 text-sm">上月</button>
+                        <button class="py-1 px-2 bg-gray-100 rounded-lg text-gray-600 text-sm">今年</button>
+                    </div>
+                    
+                    <div class="flex justify-between mt-3">
+                        <button class="bg-gray-200 rounded-lg py-1 px-3 text-gray-600">取消</button>
+                        <button class="bg-primary bg-opacity-90 rounded-lg py-1 px-3 text-white">应用</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- History List -->
+            <div class="px-4 pt-3">
+                <!-- Today section -->
+                <div class="mb-4">
+                    <h2 class="text-sm font-semibold opacity-80 mb-2 px-1">今天</h2>
+                    
+                    <!-- History Item -->
+                    <div class="history-card p-4 mb-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">宿缘相逢</h3>
+                                <p class="text-gray-600 text-sm mt-1">前世修来今世缘，莫把良缘误...</p>
+                            </div>
+                            <div class="fortune-level level-top">上上签</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-1"></i>
+                                <span class="text-gray-500 text-xs">今天 14:28</span>
+                            </div>
+                            
+                            <div class="flex">
+                                <button class="mr-3 text-gray-400 text-sm"><i class="far fa-bookmark mr-1"></i> 收藏</button>
+                                <button class="text-primary text-sm"><i class="far fa-eye mr-1"></i> 查看</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- History Item -->
+                    <div class="history-card p-4 mb-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">心想事成</h3>
+                                <p class="text-gray-600 text-sm mt-1">心之所向，事皆可成，时机已至...</p>
+                            </div>
+                            <div class="fortune-level level-middle">中签</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-1"></i>
+                                <span class="text-gray-500 text-xs">今天 10:15</span>
+                            </div>
+                            
+                            <div class="flex">
+                                <button class="mr-3 text-primary text-sm"><i class="fas fa-bookmark mr-1"></i> 已收藏</button>
+                                <button class="text-primary text-sm"><i class="far fa-eye mr-1"></i> 查看</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Yesterday section -->
+                <div class="mb-4">
+                    <h2 class="text-sm font-semibold opacity-80 mb-2 px-1">昨天</h2>
+                    
+                    <!-- History Item -->
+                    <div class="history-card p-4 mb-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">事业有成</h3>
+                                <p class="text-gray-600 text-sm mt-1">功到自然成，事在人为...</p>
+                            </div>
+                            <div class="fortune-level level-top">上签</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-1"></i>
+                                <span class="text-gray-500 text-xs">昨天 19:42</span>
+                            </div>
+                            
+                            <div class="flex">
+                                <button class="mr-3 text-gray-400 text-sm"><i class="far fa-bookmark mr-1"></i> 收藏</button>
+                                <button class="text-primary text-sm"><i class="far fa-eye mr-1"></i> 查看</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Earlier this week -->
+                <div class="mb-4">
+                    <h2 class="text-sm font-semibold opacity-80 mb-2 px-1">本周</h2>
+                    
+                    <!-- History Item -->
+                    <div class="history-card p-4 mb-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">逆境成长</h3>
+                                <p class="text-gray-600 text-sm mt-1">天将降大任于斯人也，必先苦其心志...</p>
+                            </div>
+                            <div class="fortune-level level-low">下签</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-1"></i>
+                                <span class="text-gray-500 text-xs">周一 08:51</span>
+                            </div>
+                            
+                            <div class="flex">
+                                <button class="mr-3 text-gray-400 text-sm"><i class="far fa-bookmark mr-1"></i> 收藏</button>
+                                <button class="text-primary text-sm"><i class="far fa-eye mr-1"></i> 查看</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- History Item -->
+                    <div class="history-card p-4 mb-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">万事如意</h3>
+                                <p class="text-gray-600 text-sm mt-1">诸事顺遂，万物和谐，吉星高照...</p>
+                            </div>
+                            <div class="fortune-level level-middle">中上签</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-1"></i>
+                                <span class="text-gray-500 text-xs">周日 17:23</span>
+                            </div>
+                            
+                            <div class="flex">
+                                <button class="mr-3 text-gray-400 text-sm"><i class="far fa-bookmark mr-1"></i> 收藏</button>
+                                <button class="text-primary text-sm"><i class="far fa-eye mr-1"></i> 查看</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Last month -->
+                <div class="mb-4">
+                    <h2 class="text-sm font-semibold opacity-80 mb-2 px-1">上个月</h2>
+                    
+                    <!-- History Item -->
+                    <div class="history-card p-4 mb-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-lg">天降祥瑞</h3>
+                                <p class="text-gray-600 text-sm mt-1">福泽绵长，吉祥如意，贵人相助...</p>
+                            </div>
+                            <div class="fortune-level level-top">上签</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-1"></i>
+                                <span class="text-gray-500 text-xs">4月28日</span>
+                            </div>
+                            
+                            <div class="flex">
+                                <button class="mr-3 text-primary text-sm"><i class="fas fa-bookmark mr-1"></i> 已收藏</button>
+                                <button class="text-primary text-sm"><i class="far fa-eye mr-1"></i> 查看</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hidden empty state (will show when no records) -->
+                <div class="empty-state hidden">
+                    <i class="fas fa-history"></i>
+                    <h3 class="text-lg font-semibold mb-2">暂无历史记录</h3>
+                    <p class="text-sm text-center px-10">您还没有进行过求签，点击底部的"抽签"开始您的第一次占卜之旅吧</p>
+                    <button class="mt-6 bg-yellow-800 text-white py-2 px-6 rounded-full font-semibold">开始求签</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav flex items-center absolute bottom-0 w-full">
+            <div class="nav-item">
+                <i class="fas fa-home text-inactive"></i>
+                <span class="text-inactive">抽签</span>
+            </div>
+            
+            <div class="nav-item">
+                <i class="fas fa-history text-primary"></i>
+                <span class="text-primary">历史</span>
+            </div>
+            
+            <div class="nav-item">
+                <i class="fas fa-book text-inactive"></i>
+                <span class="text-inactive">签库</span>
+            </div>
+            
+            <div class="nav-item">
+                <i class="fas fa-user text-inactive"></i>
+                <span class="text-inactive">我的</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 示例交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 过滤按钮点击
+            const filterButton = document.querySelector('.fa-sliders-h').parentElement;
+            const filterMenu = document.querySelector('.filter-menu');
+            
+            filterButton.addEventListener('click', function() {
+                filterMenu.classList.toggle('hidden');
+            });
+            
+            // 查看按钮点击
+            const viewButtons = document.querySelectorAll('.fa-eye');
+            viewButtons.forEach(button => {
+                button.parentElement.addEventListener('click', function() {
+                    // 在真实应用中，这里会跳转到详细页面
+                    alert('查看详细签文');
+                });
+            });
+            
+            // 收藏按钮点击
+            const bookmarkButtons = document.querySelectorAll('.fa-bookmark, .fa-bookmark');
+            bookmarkButtons.forEach(button => {
+                if (!button.parentElement.classList.contains('text-primary')) {
+                    button.parentElement.addEventListener('click', function() {
+                        // Toggle bookmark status
+                        this.innerHTML = '<i class="fas fa-bookmark mr-1"></i> 已收藏';
+                        this.classList.remove('text-gray-400');
+                        this.classList.add('text-primary');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

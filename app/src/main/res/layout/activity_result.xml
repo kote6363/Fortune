@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultActivity">
+
+    <!-- 背景图 -->
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_starry_night" />
+
+    <!-- 导航头部 -->
+    <LinearLayout
+        android:id="@+id/nav_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/result_title"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <!-- 主内容区 -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/result_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nav_header">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/result_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <!-- 引号装饰 -->
+                <TextView
+                    android:id="@+id/quote_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:alpha="0.2"
+                    android:fontFamily="serif"
+                    android:text="&quot;"
+                    android:textColor="@color/accent"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/quote_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:fontFamily="serif"
+                    android:text="&quot;"
+                    android:textColor="@color/accent"
+                    android:textSize="40sp" />
+
+                <!-- 签号 -->
+                <TextView
+                    android:id="@+id/result_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:alpha="0.1"
+                    android:text="23"
+                    android:textColor="@color/accent"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
+
+                <!-- 签题 -->
+                <TextView
+                    android:id="@+id/result_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="serif"
+                    android:gravity="center"
+                    android:text="宿缘相逢"
+                    android:textColor="@color/accent"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/result_title"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gradient_divider" />
+
+                <!-- 签文 -->
+                <TextView
+                    android:id="@+id/result_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider1"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="前世修来今世缘，莫把良缘误。\n昨夜梧桐雨，今朝杨柳风。\n纵有千山万水阻，终能相守相依。"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/result_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gradient_divider" />
+
+                <!-- 运势指标 -->
+                <LinearLayout
+                    android:id="@+id/fortune_indicators"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider2"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="8dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_love"
+                                android:tint="@color/accent" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_love"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/love_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_level_top_top"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="8dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_wealth"
+                                android:tint="@color/accent" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_wealth"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/wealth_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_level_middle"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="8dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_career"
+                                android:tint="@color/accent" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_career"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/career_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_level_middle_top"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="8dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="25dp"
+                            app:cardElevation="4dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_health"
+                                android:tint="@color/accent" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_health"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/health_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fortune_level_top"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/fortune_indicators"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/gradient_divider" />
+
+                <!-- 解签 -->
+                <TextView
+                    android:id="@+id/explanation_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider3"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/fortune_explanation"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/explanation_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/explanation_title"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:lineSpacingExtra="8dp"
+                    android:text="此签表示有良好的缘分将至，可能是感情上的，也可能是事业上的合作伙伴。最近的人际关系将会有所突破，长久分离的人可能会重逢。\n\n过去的努力将会开花结果，耐心等待便会有好的收获。遇到困难不要退缩，坚持走下去，终会看到希望。\n\n在感情方面尤为顺利，若有心仪对象可大胆表达，成功率很高。已有伴侣的人感情会更加稳固。"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout> 

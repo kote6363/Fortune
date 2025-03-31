@@ -1,0 +1,24 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://artifact.bytedance.com/repository/pangle" }
+        maven { url "https://artifact.bytedance.com/repository/Volcengine/" }
+        maven { 
+            allowInsecureProtocol = true
+            url "http://maven.shenshiads.com/nexus/repository/adset/"
+        }
+        maven { url 'https://developer.hihonor.com/repo' }
+    }
+}
+
+rootProject.name = "My Application"
+include ':app'

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">神算子占卜</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">求签小组件，随时获取今日运势</string>
+    
+    <!-- 占位文字 -->
+    <string name="lorem_short">前世修来今世缘，莫把良缘误。</string>
+    <string name="lorem_medium">前世修来今世缘，莫把良缘误。有情终成眷属，天赐姻缘来自东方。</string>
+    <string name="lorem_long">前世修来今世缘，莫把良缘误。\n有情终成眷属，天赐姻缘来自东方。\n恩爱缠绵情意长久，百年好合永不分离。</string>
+    
+    <!-- 主页 -->
+    <string name="title_home">签占</string>
+    <string name="shake_hint">摇一摇竹筒 或 点击下方按钮</string>
+    <string name="shake_button">摇一摇</string>
+    
+    <!-- 导航栏 -->
+    <string name="nav_fortune">签占</string>
+    <string name="nav_history">历史</string>
+    <string name="nav_library">签库</string>
+    <string name="nav_profile">我的</string>
+    
+    <!-- 结果页 -->
+    <string name="result_title">占卜结果</string>
+    <string name="fortune_explanation">解签</string>
+    <string name="fortune_number">签号</string>
+    <string name="fortune_title">签题</string>
+    
+    <!-- 运势指标 -->
+    <string name="fortune_love">姻缘指数</string>
+    <string name="fortune_career">事业指数</string>
+    <string name="fortune_health">健康指数</string>
+    <string name="fortune_wealth">财富指数</string>
+    
+    <!-- 运势等级 -->
+    <string name="fortune_level_top_top">上上</string>
+    <string name="fortune_level_top">上</string>
+    <string name="fortune_level_middle_top">中上</string>
+    <string name="fortune_level_middle">中</string>
+    <string name="fortune_level_middle_down">中下</string>
+    <string name="fortune_level_down">下</string>
+    
+    <!-- 按钮 -->
+    <string name="action_save">保存</string>
+    <string name="action_share">分享</string>
+    <string name="action_retry">重抽</string>
+    <string name="result_saved">结果已保存</string>
+    <string name="share_title">分享我的占卜结果</string>
+    <string name="share_prefix">我抽到了这支签，分享给你看看！</string>
+    
+    <!-- 历史页面 -->
+    <string name="title_history">历史记录</string>
+    <string name="clear_history">清空记录</string>
+    <string name="hint_search_history">搜索历史记录</string>
+    <string name="search_hint">搜索历史记录</string>
+    <string name="empty_history_title">暂无历史记录</string>
+    <string name="empty_history_desc">开始抽签，了解你的命运！</string>
+    <string name="start_fortune">开始抽签</string>
+    
+    <!-- 筛选相关 -->
+    <string name="filter_title">筛选条件</string>
+    <string name="filter_clear">清除</string>
+    <string name="filter_this_month">本月</string>
+    <string name="filter_last_month">上月</string>
+    <string name="filter_this_year">今年</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_apply">应用</string>
+    
+    <!-- 操作按钮 -->
+    <string name="action_bookmark">收藏</string>
+    <string name="action_bookmarked">已收藏</string>
+    <string name="action_view">查看</string>
+    <string name="action_more">更多</string>
+    
+    <!-- 其他 -->
+    <string name="feature_coming_soon">功能开发中，敬请期待</string>
+</resources>

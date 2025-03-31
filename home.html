@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>占卜应用 - 主页</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            background-image: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.3) 0%, rgba(233, 226, 226, 0.2) 90.1%);
+        }
+        .status-bar, .fortune-container, .bottom-nav {
+            position: relative;
+            z-index: 1;
+        }
+        .status-bar {
+            height: 44px;
+            background-color: #acacac;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 16px;
+            align-items: center;
+            font-size: 14px;
+            color: #fff;
+        }
+        .fortune-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 44px - 83px);
+            position: relative;
+            z-index: 1;
+        }
+        .fortune-hint-button {
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+            background-color: rgba(139, 69, 19, 0.8);
+            padding: 16px 32px;
+            border-radius: 50px;
+            margin-top: auto;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(205, 133, 63, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .fortune-hint-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            box-shadow: 0 0 15px 3px rgba(205, 133, 63, 0.5);
+            z-index: -1;
+        }
+        .fortune-hint-button:hover {
+            transform: scale(1.05);
+        }
+        .bottom-nav {
+            height: 83px;
+            background-color: #3c3c3c;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #aaa;
+        }
+        .nav-item.active {
+            color: #ff6b4a;
+        }
+        .nav-item i {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        .nav-item span {
+            font-size: 12px;
+        }
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        /* 添加装饰性图案 */
+        .decorative-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.07) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.07) 2px, transparent 2px);
+            background-size: 20px 20px;
+            z-index: 0;
+        }
+        
+        /* 添加水墨效果 */
+        .ink-decoration {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: -150px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 0;
+        }
+        
+        .ink-decoration:after {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        .shake-animation {
+            animation: shake 0.8s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+        
+        /* 中央签筒图标 */
+        .fortune-sticks-icon {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 0;
+            opacity: 0.15;
+        }
+        .fortune-sticks-icon svg {
+            width: 70%;
+            max-width: 300px;
+            height: auto;
+            filter: drop-shadow(0 0 5px rgba(139, 69, 19, 0.3));
+        }
+    </style>
+</head>
+<body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+        <div>9:41 AM</div>
+        <div>
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi ml-1"></i>
+            <i class="fas fa-battery-full ml-1"></i>
+        </div>
+    </div>
+    
+    <!-- 主内容区 -->
+    <div class="fortune-container">
+        <div class="particles" id="particles"></div>
+        <div class="decorative-pattern"></div>
+        <div class="ink-decoration"></div>
+        
+        <!-- 添加签筒图标 -->
+        <div class="fortune-sticks-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!-- 签筒 -->
+                <rect x="150" y="120" width="212" height="330" rx="20" fill="#8B4513" />
+                <rect x="170" y="140" width="172" height="290" rx="10" fill="#A0522D" />
+                
+                <!-- 签筒顶部 -->
+                <ellipse cx="256" cy="120" rx="106" ry="30" fill="#8B4513" />
+                <ellipse cx="256" cy="110" rx="90" ry="20" fill="#6B3E26" />
+                
+                <!-- 签子 -->
+                <rect x="180" y="70" width="10" height="200" rx="2" fill="#8B0000" transform="rotate(5, 185, 170)" />
+                <rect x="205" y="50" width="10" height="180" rx="2" fill="#8B0000" transform="rotate(-3, 210, 140)" />
+                <rect x="230" y="40" width="10" height="220" rx="2" fill="#8B0000" transform="rotate(2, 235, 150)" />
+                <rect x="255" y="30" width="10" height="190" rx="2" fill="#8B0000" transform="rotate(-2, 260, 125)" />
+                <rect x="280" y="45" width="10" height="210" rx="2" fill="#8B0000" transform="rotate(3, 285, 150)" />
+                <rect x="305" y="55" width="10" height="180" rx="2" fill="#8B0000" transform="rotate(-4, 310, 145)" />
+                <rect x="330" y="60" width="10" height="190" rx="2" fill="#8B0000" transform="rotate(6, 335, 155)" />
+                
+                <!-- 签筒底部装饰 -->
+                <rect x="150" y="420" width="212" height="30" rx="10" fill="#6B3E26" />
+                <ellipse cx="256" cy="450" rx="106" ry="20" fill="#8B4513" />
+            </svg>
+        </div>
+        
+        <div class="fortune-hint-button" id="shakeButton">
+            摇晃手机开始占卜
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>占卜</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-history"></i>
+            <span>历史</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-book"></i>
+            <span>签文库</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script>
+        // 模拟摇晃检测
+        document.getElementById('shakeButton').addEventListener('click', function() {
+            this.classList.add('shake-animation');
+            
+            setTimeout(() => {
+                // 移除动画类
+                this.classList.remove('shake-animation');
+                
+                // 延迟后跳转到结果页
+                setTimeout(() => {
+                    window.parent.location.href = '#result';
+                }, 500);
+            }, 800);
+        });
+
+        // 创建粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 3 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                
+                // 创建不同色调的粒子
+                const colors = [
+                    'rgba(189, 156, 86, 0.4)',  // 金色
+                    'rgba(175, 81, 81, 0.3)',   // 红色
+                    'rgba(73, 96, 118, 0.3)',   // 蓝色
+                    'rgba(102, 152, 104, 0.3)', // 绿色
+                ];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.backgroundColor = randomColor;
+                particle.style.borderRadius = '50%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.boxShadow = `0 0 6px ${randomColor}`;
+                
+                // 随机动画持续时间
+                const animationDuration = 4 + Math.random() * 12;
+                
+                // 添加浮动动画
+                particle.style.animation = `float ${animationDuration}s ease-in-out infinite`;
+                
+                // 添加关键帧动画
+                const keyframes = `
+                    @keyframes float {
+                        0% { transform: translate(0, 0) rotate(0deg); opacity: 0.2; }
+                        50% { transform: translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px) rotate(180deg); opacity: 0.6; }
+                        100% { transform: translate(0, 0) rotate(360deg); opacity: 0.2; }
+                    }
+                `;
+                
+                const style = document.createElement('style');
+                style.textContent = keyframes;
+                document.head.appendChild(style);
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // 调用粒子创建函数
+        createParticles();
+    </script>
+</body>
+</html> 

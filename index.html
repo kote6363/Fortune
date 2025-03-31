@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>占卜应用原型</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .prototype-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px;
+        }
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 10px solid #111;
+        }
+        .phone-title {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-3xl font-bold text-center my-8">占卜应用 - 原型设计</h1>
+    
+    <div class="prototype-container">
+        <!-- 主页原型 -->
+        <div>
+            <div class="phone-frame">
+                <iframe src="home.html" title="主页"></iframe>
+            </div>
+            <p class="phone-title">主页</p>
+        </div>
+        
+        <!-- 结果页原型 -->
+        <div>
+            <div class="phone-frame">
+                <iframe src="result.html" title="结果页"></iframe>
+            </div>
+            <p class="phone-title">结果页</p>
+        </div>
+    </div>
+</body>
+</html> 

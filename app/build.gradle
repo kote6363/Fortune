@@ -1,0 +1,103 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.xth.fortune'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.xth.fortune"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    lint {
+        abortOnError false
+    }
+
+    // 确保Jetifier可以处理AndroidX中的工具和库
+    configurations.all {
+        resolutionStrategy.force 'androidx.core:core:1.9.0'
+        resolutionStrategy.force 'androidx.appcompat:appcompat:1.6.1'
+    }
+    
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+    }
+}
+
+repositories {
+    mavenCentral()
+    google()
+    maven {
+        allowInsecureProtocol = true
+        url "http://maven.shenshiads.com/nexus/repository/adset/"
+    }
+    maven { url "https://artifact.bytedance.com/repository/pangle" }
+    maven { url "https://artifact.bytedance.com/repository/Volcengine/" }
+    maven { url 'https://developer.hihonor.com/repo' }
+    jcenter()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.fragment:fragment:1.6.2'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.google.code.gson:gson:2.10'
+    
+    // 添加对multidex的支持
+    implementation 'androidx.multidex:multidex:2.0.1'
+    
+    // 神蓍广告SDK - 基础包
+    implementation 'com.shenshi:ad-openset-sdk:6.5.1.1'
+    
+    // 神蓍广告适配器
+    implementation 'com.shenshi:ad-tanx-adapter:3.6.4.1'
+    implementation 'com.shenshi:ad-beizi-adapter:4.90.4.42.1'
+    implementation 'com.shenshi:ad-guangdiantong-adapter:4.620.1490.1'
+    implementation 'com.shenshi:ad-kuaishou-ad-adapter:3.3.69.3'
+    // implementation 'com.shenshi:ad-sigmob-adapter:4.19.5.4'
+    
+    // 其他必要依赖
+    implementation 'com.google.android.gms:play-services-basement:18.2.0'
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+}

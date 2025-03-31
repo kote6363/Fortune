@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="240dp"
+    android:viewportWidth="180"
+    android:viewportHeight="240">
+
+    <!-- 竹筒主体 -->
+    <path
+        android:fillColor="#8B5A2B"
+        android:pathData="M50,40 L130,40 C135,40 140,45 140,50 L140,200 C140,205 135,210 130,210 L50,210 C45,210 40,205 40,200 L40,50 C40,45 45,40 50,40 Z" />
+
+    <!-- 竹筒纹理 -->
+    <path
+        android:fillColor="#6B4226"
+        android:pathData="M50,70 L130,70 L130,72 L50,72 Z" />
+    <path
+        android:fillColor="#6B4226"
+        android:pathData="M50,100 L130,100 L130,102 L50,102 Z" />
+    <path
+        android:fillColor="#6B4226"
+        android:pathData="M50,130 L130,130 L130,132 L50,132 Z" />
+    <path
+        android:fillColor="#6B4226"
+        android:pathData="M50,160 L130,160 L130,162 L50,162 Z" />
+    <path
+        android:fillColor="#6B4226"
+        android:pathData="M50,190 L130,190 L130,192 L50,192 Z" />
+
+    <!-- 竹筒上部椭圆 -->
+    <path
+        android:fillColor="#CD853F"
+        android:pathData="M50,40 A45,20 0 0 1 130,40 A45,20 0 0 1 50,40 Z" />
+
+    <!-- 签筒内部 -->
+    <path
+        android:fillColor="#D2B48C"
+        android:pathData="M58,50 L122,50 L122,190 L58,190 Z" />
+    
+    <!-- 签子 -->
+    <path
+        android:fillColor="#8B0000"
+        android:pathData="M65,45 L72,45 L75,120 L62,120 Z" />
+    <path
+        android:fillColor="#CD5C5C"
+        android:pathData="M85,45 L92,45 L95,150 L82,150 Z" />
+    <path
+        android:fillColor="#A52A2A"
+        android:pathData="M105,45 L112,45 L115,135 L102,135 Z" />
+    <path
+        android:fillColor="#B22222"
+        android:pathData="M120,45 L127,45 L130,160 L117,160 Z" />
+</vector> 

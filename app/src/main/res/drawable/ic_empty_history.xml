@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- 背景卷轴 -->
+    <path
+        android:fillColor="#F5EFE0"
+        android:pathData="M40,30C40,30 30,35 30,45C30,65 30,155 30,155C30,165 40,170 40,170L160,170C160,170 170,165 170,155C170,135 170,45 170,45C170,35 160,30 160,30L40,30Z" />
+
+    <!-- 卷轴顶部卷曲部分 -->
+    <path
+        android:fillColor="#E6D9C2"
+        android:pathData="M40,30C40,30 35,27 35,20C35,15 38,12 40,12C45,12 155,12 160,12C162,12 165,15 165,20C165,27 160,30 160,30" />
+
+    <!-- 卷轴底部卷曲部分 -->
+    <path
+        android:fillColor="#E6D9C2"
+        android:pathData="M40,170C40,170 35,173 35,180C35,185 38,188 40,188C45,188 155,188 160,188C162,188 165,185 165,180C165,173 160,170 160,170" />
+
+    <!-- 纸张纹理线条 -->
+    <path
+        android:strokeColor="#D2C5B0"
+        android:strokeWidth="1"
+        android:pathData="M50,50L150,50" />
+
+    <path
+        android:strokeColor="#D2C5B0"
+        android:strokeWidth="1"
+        android:pathData="M50,70L150,70" />
+
+    <path
+        android:strokeColor="#D2C5B0"
+        android:strokeWidth="1"
+        android:pathData="M50,90L150,90" />
+
+    <path
+        android:strokeColor="#D2C5B0"
+        android:strokeWidth="1"
+        android:pathData="M50,110L150,110" />
+
+    <path
+        android:strokeColor="#D2C5B0"
+        android:strokeWidth="1"
+        android:pathData="M50,130L150,130" />
+
+    <path
+        android:strokeColor="#D2C5B0"
+        android:strokeWidth="1"
+        android:pathData="M50,150L150,150" />
+
+    <!-- 卷轴装饰细节 -->
+    <path
+        android:fillColor="#CD853F"
+        android:pathData="M100,15C95,15 90,17 90,20C90,23 95,25 100,25C105,25 110,23 110,20C110,17 105,15 100,15Z" />
+
+    <path
+        android:fillColor="#CD853F"
+        android:pathData="M100,185C95,185 90,183 90,180C90,177 95,175 100,175C105,175 110,177 110,180C110,183 105,185 100,185Z" />
+
+    <!-- 中间空白的标识符 -->
+    <path
+        android:fillColor="#CD853F"
+        android:pathData="M85,95C85,90 90,85 95,85L105,85C110,85 115,90 115,95L115,105C115,110 110,115 105,115L95,115C90,115 85,110 85,105Z"
+        android:alpha="0.2" />
+</vector>
