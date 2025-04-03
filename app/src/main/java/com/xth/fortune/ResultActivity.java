@@ -53,7 +53,7 @@ public class ResultActivity extends AppCompatActivity {
                 @Override
                 public void onRenderSuccess(View view) {
                     Log.i("xthx","result onRenderSuccess");
-//                    adContainer.addView(view);
+                    adContainer.addView(view);
                 }
 
                 @Override
