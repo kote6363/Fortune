@@ -6,7 +6,7 @@
     tools:context=".SplashActivity">
     <!-- 广告容器 -->
     <FrameLayout
-        android:id="@+id/ad_container"
+        android:id="@+id/fl"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

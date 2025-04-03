@@ -25,11 +25,13 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         public void onLoadSuccess(OSETSplashAd osetSplashAd) {
             Log.i("xthx","success");
+            delayJumpToMain();
         }
 
         @Override
         public void onLoadFail(String s, String s1) {
             Log.i("xthx","onLoadFail");
+            jumpToMain();
         }
     };
 
@@ -38,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        adContainer = findViewById(R.id.ad_container);
+        adContainer = findViewById(R.id.fl);
         
         // Simulate ad loading and display
         Log.d(TAG, "正在加载广告...");
@@ -51,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
         
         // In a real implementation, we would initialize the OSET SDK here
         // For now, we'll just delay and then jump to main activity
-        delayJumpToMain();
+//        delayJumpToMain();
     }
 
 
