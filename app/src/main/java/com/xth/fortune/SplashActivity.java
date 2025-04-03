@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.kc.openset.ad.listener.OSETSplashAdLoadListener;
+import com.kc.openset.ad.listener.OSETSplashListener;
 import com.kc.openset.ad.splash.OSETSplash;
 import com.kc.openset.ad.splash.OSETSplashAd;
 
@@ -25,7 +26,29 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         public void onLoadSuccess(OSETSplashAd osetSplashAd) {
             Log.i("xthx","success");
-            delayJumpToMain();
+            osetSplashAd.showAd(SplashActivity.this, adContainer, new OSETSplashListener() {
+                @Override
+                public void onClick() {
+                    Log.i("xthx","onClick");
+                }
+
+                @Override
+                public void onClose() {
+                    Log.i("xthx","onClose");
+                    jumpToMain();
+                }
+
+                @Override
+                public void onShow() {
+                    Log.i("xthx","onShow");
+                }
+
+                @Override
+                public void onError(String s, String s1) {
+                    Log.i("xthx","onError:"+s);
+                    jumpToMain();
+                }
+            });
         }
 
         @Override
