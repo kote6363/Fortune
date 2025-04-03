@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.kc.openset.ad.banner.OSETBanner;
+import com.kc.openset.ad.banner.OSETBannerAd;
+import com.kc.openset.ad.listener.OSETBannerAdLoadListener;
+import com.kc.openset.ad.listener.OSETBannerListener;
 
 import java.util.Random;
 
@@ -25,9 +31,49 @@ public class ResultActivity extends AppCompatActivity {
     
     private FortuneResult currentResult;
     private FortuneDbHelper dbHelper;
+    private FrameLayout adContainer;
     
     private static final String TAG = "ResultActivity";
-    
+
+    private OSETBannerAdLoadListener osetBannerAdLoadListener = new OSETBannerAdLoadListener() {
+        @Override
+        public void onLoadSuccess(OSETBannerAd osetBannerAd) {
+            Log.i("xthx","result onLoadSuccess");
+            osetBannerAd.render(ResultActivity.this, new OSETBannerListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+
+                @Override
+                public void onClose(View view) {
+
+                }
+
+                @Override
+                public void onRenderSuccess(View view) {
+                    Log.i("xthx","result onRenderSuccess");
+//                    adContainer.addView(view);
+                }
+
+                @Override
+                public void onShow(View view) {
+                    Log.i("xthx","result onShow");
+                }
+
+                @Override
+                public void onError(String s, String s1) {
+                    Log.i("xthx","onError");
+                }
+            });
+        }
+
+        @Override
+        public void onLoadFail(String s, String s1) {
+            Log.i("xthx","result onLoadFail="+s);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +114,11 @@ public class ResultActivity extends AppCompatActivity {
         
         // 设置返回按钮
         setupNavigation();
+
+        OSETBanner.getInstance()
+                .setContext(this)
+                .setPosId("513D769005162B90615C65CC1722953C")
+                .loadAd(osetBannerAdLoadListener);
     }
     
     private void initViews() {
@@ -82,6 +133,7 @@ public class ResultActivity extends AppCompatActivity {
         wealthLevelTextView = findViewById(R.id.wealth_level);
         careerLevelTextView = findViewById(R.id.career_level);
         healthLevelTextView = findViewById(R.id.health_level);
+        adContainer = findViewById(R.id.banner);
         
         Log.d(TAG, "ResultActivity视图初始化完成");
     }

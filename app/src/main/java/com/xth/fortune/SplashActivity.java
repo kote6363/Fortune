@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(String s, String s1) {
-                    Log.i("xthx","onError:"+s);
+                    Log.i("xthx","splash onError:"+s);
                     jumpToMain();
                 }
             });
